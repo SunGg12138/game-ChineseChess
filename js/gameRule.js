@@ -92,20 +92,16 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (y2 < y1) {
-					console.info('小兵不能回头！');
 					return false;
 				};
 				if (y1 < 5 && minX!==maxX) {
-					console.info('小兵过河之后才能横着走！');
 					return false;
 				};
 			}else {
 				if (y2 > y1) {
-					console.info('小兵不能回头！');
 					return false;
 				};
 				if (y1 > 4 && minX!==maxX) {
-					console.info('小兵过河之后才能横着走！');
 					return false;
 				};
 			};
@@ -150,12 +146,10 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (y2 > 4) {
-					console.info('象不能过河！');
 					return false;
 				};
 			}else{
 				if (y2 < 5) {
-					console.info('象不能过河！');
 					return false;
 				};
 			};
@@ -171,12 +165,10 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (x2 > 5 || x2 < 3 || y2 > 2) {
-					console.info('士不能出九宫格！');
 					return false;
 				};
 			}else{
 				if (x2 > 5 || x2 < 3 || y2 < 7) {
-					console.info('士不能出九宫格！');
 					return false;
 				};
 			};
@@ -192,15 +184,14 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (x2 > 5 || x2 < 3 || y2 > 2) {
-					console.info('将不能出九宫格！');
 					return false;
 				};
 			}else{
 				if (x2 > 5 || x2 < 3 || y2 < 7) {
-					console.info('将不能出九宫格！');
 					return false;
 				};
-			};			if  (maxX-minX > 1 || maxY-minY > 1) {
+			};			
+			if  (maxX-minX > 1 || maxY-minY > 1) {
 				return false;
 			};
 			if (minX===maxX && minY===maxY) {

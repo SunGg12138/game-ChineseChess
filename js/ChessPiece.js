@@ -13,7 +13,10 @@ ChessPiece.prototype.placement = function() {
 		left: this.x*config.preTd - config.preChessPiece/2,
 		top: this.y*config.preTd - config.preChessPiece/2
 	});
-	this.DOM.attr('data-name', this.name);
+	this.DOM.attr({
+		'data-name': this.name,
+		'data-type': this.type
+	});
 	pos[this.x+'-'+this.y] = this.DOM;   //通知pos
 	$box.append(this.DOM);
 };
@@ -30,6 +33,7 @@ ChessPiece.prototype.hitTarget = function(x, y, hitedDom) {
 			if (hitedDom.data('name').split('_')[0] === 'jiang') {
 				var winInfo = hitedDom.data('name').split('_')[1] === 'top'? '绿方':'红方';
 				alert(winInfo + ' 胜利了！');
+				return;
 			};
 			var chessPieceInfo = hitedDom.data('name').split('_');
 			var squares = chessPieceInfo[1] === 'top'? '红方':'绿方';
@@ -67,6 +71,7 @@ ChessPiece.prototype.targetAfter = function(x, y, callback) {
 			zIndex: 1
 		});
 	}.bind(this));
+	isJiangJu(this.squares);
 	//这个玩家走完了
 	thisPlayerEnd();
 };

@@ -26,3 +26,32 @@ function addHistory(chessPieceName, x1, y1, x2, y2, tagType) {
 	li.html(squares+type+num+'号：（'+x1+', '+y1+'）=>（'+x2+', '+y2+'）');
 	historyBox.append(li);
 }
+function isJiangJu (squares) {
+	var notSquares = squares==='top'? 'bottom':'top';
+	var SquaresJiang = chessButler.Chess['jiang_'+squares];
+	var notSquaresJiang = chessButler.Chess['jiang_'+notSquares];
+	//是否将军
+	for (var i=0; i<9; i++) {
+		for (var j=0; j<10; j++) {
+			if (pos[i+'-'+j] && 
+				pos[i+'-'+j].hasClass('squares-'+squares) && 
+				isHitAble(chessType[pos[i+'-'+j].data('type')].hitType, i, j, notSquaresJiang.x, notSquaresJiang.y, squares)) {
+				$('.jiangju-'+notSquares).slideDown();
+				return;
+			};
+		};
+	};
+	//是否还在将军
+	for (var i=0; i<9; i++) {
+		for (var j=0; j<10; j++) {
+			if (pos[i+'-'+j] && 
+				pos[i+'-'+j].hasClass('squares-'+notSquares) && 
+				isHitAble(chessType[pos[i+'-'+j].data('type')].hitType, i, j, SquaresJiang.x, SquaresJiang.y, notSquares)) {
+				$('.jiangju-'+squares).slideDown();
+				return;
+			};
+		};
+	};
+	$('.jiangju-'+squares).hide();
+	$('.jiangju-'+notSquares).hide();
+}
