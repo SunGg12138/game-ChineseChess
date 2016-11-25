@@ -1,0 +1,21 @@
+body {
+	background-color: #fffcc7;
+}
+#main .chess-td {
+	width: 50px;
+	height: 50px;
+	border: 1px solid #bb3e4c;
+}
+#main .chess-td-trans {
+	border-top: 1px solid #bb3e4c;
+}
+#main .chesspiece {
+	line-height: 34px;
+	background: #f2d0a3;
+	border: 3px solid #e4b28f;
+}
+#main .active {
+	background: #f40;
+	color: #fff;
+	border-color: #f40;
+}

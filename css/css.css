@@ -1,0 +1,112 @@
+html {
+	font-size: 100px;
+}
+body,h1,h2,h3,h4,h5,h6,ul,li{padding: 0;margin: 0;}
+body{font-size: 12px;font-family: "微软雅黑";background: #000;color: #333;}
+#main {
+	width: 9rem; 
+	height: 5rem;
+	position: relative;
+	margin: 70px auto;
+}
+#main, #main * {
+	box-sizing: border-box;
+}
+#main table {
+	border-collapse: collapse;
+}
+#main .chess-center {
+	height: 50px;
+}
+/*棋盘每个格的状态*/
+#main .chess-td {
+	width: 50px;
+	height: 50px;
+	border: 1px solid #fff;
+}
+/*九宫格的状态*/
+#main .chess-td-trans {
+	width: 142px;
+	height: 0;
+	position: absolute;
+	border-top: 1px solid #fff;
+}
+#main .trans-top-1 {
+	left: 130px;
+	top: 50px;
+	transform: rotate(45deg);
+}
+#main .trans-top-2 {
+	left: 130px;
+	top: 50px;
+	transform: rotate(-45deg);
+}
+#main .trans-bottom-1 {
+	left: 130px;
+	top: 400px;
+	transform: rotate(45deg);
+}
+#main .trans-bottom-2 {
+	left: 130px;
+	top: 400px;
+	transform: rotate(-45deg);
+}
+/*棋子的样式*/
+#main .chesspiece {
+	position: absolute;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background: #aaa;
+	font-style: normal;
+	font-size: 18px;
+	font-weight: 600;
+	cursor: pointer;
+	z-index: 1;
+}
+/*上方棋子的样式*/
+#main .squares-top {
+	color: #c40;
+}
+/*下方棋子的样式*/
+#main .squares-bottom {
+	color: rgb(54, 141, 24);
+}
+/*选中棋子的样式*/
+#main .active {
+	background: #f40;
+	color: #fff;
+}
+#main .event-layer {
+	cursor: pointer;
+	position: absolute;
+}
+/*棋子选择位置的样式*/
+#main .event-layer:hover {
+	background: #f40;
+	border-radius: 50%;
+}
+#main .game-info {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 400px;
+	height: 100%;
+	font-size: 12px;
+	color: #333;
+}
+#main .game-info h2 {
+	line-height: 2;
+	font-size: 24px;
+	text-align: center;
+}
+#main .game-history {
+	width: 100%;
+	height: 400px;
+	overflow-y: scroll;
+}
+#main .game-history li {
+	margin-bottom: 5px;
+}
