@@ -130,7 +130,7 @@ body{font-size: 12px;font-family: "微软雅黑";background: #000;color: #333;}
 #main .game-history {
 	width: 100%;
 	height: 400px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 #main .game-history li {
 	margin-bottom: 5px;

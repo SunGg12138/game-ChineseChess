@@ -1,5 +1,6 @@
 var $body;
 var $box;
+var historyBox;
 var config = {
 	preChessPiece: 40,
 	preTd: 50,
@@ -9,7 +10,9 @@ var chessButler;
 var selectedChess = null;  //选中的棋子
 //位置网
 var pos = {};
-//事件层
+
+var isEnd = false;
+//设置 事件层和pos
 var eventLayers = function() {
 	for (var i=0; i<9; i++) {
 		for (var j=0; j<10; j++) {
@@ -31,7 +34,7 @@ var eventLayers = function() {
 	};
 };
 function addEvent() {
-	//添加事件层
+	//添加事件层和事件
 	eventLayers();
 	$box.on('click', '.event-layer', function(e){
 		e.stopPropagation();
@@ -40,20 +43,26 @@ function addEvent() {
 		};
 	});
 	$box.on('click', '.chesspiece', function(e){
-		if (selectedChess instanceof jQuery) {
-			var classList = this.className;
-			var squaresClass = /\s*(squares-\w+)/.exec(classList)[1];
-			if (selectedChess.hasClass(squaresClass)) {
-				selectedChess.removeClass('active');
-			}else{
-				var thisButler = chessButler.Chess[$(this).data('name')];
-				chessButler.targetLayer(thisButler.x, thisButler.y, $(this));
-				return;
+		//如果本局结束就不允许移动棋子
+		if (!isEnd) {
+			if (selectedChess instanceof jQuery) {
+				var squaresClass = /(squares-\w+)/.exec(this.className)[1];   //获取阵容的class
+				//判断是否是同样的阵容
+				if (selectedChess.hasClass(squaresClass)) {
+					selectedChess.removeClass('active');
+				}else{
+					//如果是不同阵营则视为攻击目标
+					//找到棋子的构造函数  
+					var thisButler = chessButler.Chess[$(this).data('name')];
+					chessButler.targetLayer(thisButler.x, thisButler.y, $(this));
+					return;
+				};
 			};
-		};
-		if ($(this).hasClass(nowPlayer)) {
-			$(this).addClass('active');
-			selectedChess = $(this);
+			// 如果已经选中棋子，并且是当前方选棋
+			if ($(this).hasClass(nowPlayer)) {
+				$(this).addClass('active');
+				selectedChess = $(this);
+			};
 		};
 	});
 }
@@ -110,7 +119,8 @@ var butler = function () {
 };
 function init() {
 	$body = $(document.body);
-	$box = $('#main')
+	$box = $('#main');
+	historyBox = $('.game-history');
 	addEvent();
 	chessButler = butler();
 	updateGameInfo();

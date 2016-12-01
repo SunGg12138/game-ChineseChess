@@ -6,6 +6,7 @@ var ChessPiece = function(x ,y, type, name, squares) {
 	this.squares = squares;  //上方还是下方
 	this.placement();
 };
+//把棋子放置在页面中
 ChessPiece.prototype.placement = function() {
 	this.DOM = $('<i class="chesspiece squares-'+this.squares+'">');
 	this.DOM.html(chessType[this.type].html[this.squares]);
@@ -30,21 +31,25 @@ ChessPiece.prototype.moveTarget = function(x, y) {
 ChessPiece.prototype.hitTarget = function(x, y, hitedDom) {
 	if (isHitAble(chessType[this.type].hitType, this.x, this.y, x, y, this.squares)) {
 		this.targetAfter(x, y, function(){
-			if (hitedDom.data('name').split('_')[0] === 'jiang') {
-				var winInfo = hitedDom.data('name').split('_')[1] === 'top'? '绿方':'红方';
-				alert(winInfo + ' 胜利了！');
-				return;
+			var hitedInfo = hitedDom.data('name').split('_'),
+				hitedType = hitedInfo[0],
+				squares = hitedInfo[1] === 'top'? '红方':'绿方',
+				hitedText = chessType[hitedType].html[hitedInfo[1]],
+				num = hitedInfo[2]? hitedInfo[2] : '',
+				tagDiv = $('<div>');
+			//判断是否胜利
+			if (hitedType === 'jiang') {
+				var winer = hitedInfo[1] === 'top'? '绿方':'红方';
+				tagDiv.html('并且吃掉了'+ squares + hitedText +num +'<br/>');
+				tagDiv[0].innerHTML+='还赢得了本局游戏！';
+				isEnd = true;
+				alert(winer + ' 胜利了！');
+			} else {
+				tagDiv.html('并且吃掉了'+ squares + hitedText +num +'号');
 			};
-			var chessPieceInfo = hitedDom.data('name').split('_');
-			var squares = chessPieceInfo[1] === 'top'? '红方':'绿方';
-			var type = chessType[chessPieceInfo[0]].html[chessPieceInfo[1]];
-			var num = chessPieceInfo[2];
-
-			var tagDiv = $('<div>');
-			var historyBox = $('.game-history');
-			tagDiv.html('并且吃掉了'+ squares + type +num +'号');
+			//添加历史记录
 			historyBox.append(tagDiv);
-
+			//删除棋子的构造函数、和页面的DOM结构
 			delete chessButler.Chess[hitedDom.data('name')]
 			console.log('吃掉了'+ hitedDom.data('name'));
 			hitedDom.remove();  //去掉被攻击的棋子
@@ -71,6 +76,7 @@ ChessPiece.prototype.targetAfter = function(x, y, callback) {
 			zIndex: 1
 		});
 	}.bind(this));
+	//是否将
 	isJiangJu(this.squares);
 	//这个玩家走完了
 	thisPlayerEnd();

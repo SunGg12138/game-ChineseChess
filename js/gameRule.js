@@ -57,12 +57,12 @@ var chessType = {
 	}
 };
 function isMoveAble(type, x1, y1, x2, y2, squares) {
-	var obj = {
+	var minX = x1 < x2? x1:x2,
+		maxX = x1 < x2? x2:x1,
+		minY = y1 < y2? y1:y2,
+		maxY = y1 < y2? y2:y1,
+		obj = {
 		line: function() {
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
 			if (minX===maxX && minY===maxY) {
 				return false;
 			};
@@ -86,10 +86,6 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			};
 		},
 		one: function() {
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (y2 < y1) {
 					return false;
@@ -117,10 +113,6 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			return true;
 		},
 		ma: function() {
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
 			if (maxX-minX === 1 && maxY-minY === 2) {
 				if (y2 === maxY && !pos[x1+'-'+(y1+1)]) {
 					return true;
@@ -140,10 +132,6 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			return false;
 		},
 		xiang: function() {
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (y2 > 4) {
 					return false;
@@ -159,10 +147,6 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			return false;
 		},
 		shi: function() {
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (x2 > 5 || x2 < 3 || y2 > 2) {
 					return false;
@@ -178,10 +162,6 @@ function isMoveAble(type, x1, y1, x2, y2, squares) {
 			return false;
 		},
 		jiang: function(){
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
 			if (squares === 'top') {
 				if (x2 > 5 || x2 < 3 || y2 > 2) {
 					return false;
@@ -214,10 +194,10 @@ function isHitAble(type, x1, y1, x2, y2, squares) {
 			return isMoveAble(type, x1, y1, x2, y2, squares);
 		},
 		pao: function() {
-			var minX = x1 < x2? x1:x2;
-			var maxX = x1 < x2? x2:x1;
-			var minY = y1 < y2? y1:y2;
-			var maxY = y1 < y2? y2:y1;
+			var minX = x1 < x2? x1:x2,
+				maxX = x1 < x2? x2:x1,
+				minY = y1 < y2? y1:y2,
+				maxY = y1 < y2? y2:y1;
 			if  (maxX-minX === 1 || maxY-minY === 1) {
 				return false;
 			};
